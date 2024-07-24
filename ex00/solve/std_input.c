@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chk_map_line_count.c                               :+:      :+:    :+:   */
+/*   std_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:55:17 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:20:05 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 09:50:08 by nalebrun          #+#    #+#             */
+/*   Updated: 2024/07/24 09:50:13 by nalebrun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	line_count(char *buffer)
+char	*new_map(void)
 {
-	int	i;
-	int	line_num;
-
+	int		nb;
+	char	temp[1000];
+	char	buff[5000000];
+	int		line;
+	int		i;
+	char	*buffer;	buff[0] = '\0';
 	i = 0;
-	line_num = 0;
-	while (buffer[i])
+	nb = read(0, temp, 99);
+	temp[nb] = '\0';
+	line = ft_atoi(temp);
+	ft_strcpy(buff, temp);
+	while (i < line)
 	{
-		if (buffer[i] == '\n')
-			line_num++;
+		nb = read(0, temp, sizeof(temp) - 1);
+		temp[nb] = '\0';
+		ft_strcpy(buff, temp);
 		i++;
 	}
-	return (line_num);
-}
-
-int	chk_map_line_count(char *buffer)
-{
-	return (line_count(buffer) - 1 == num_lines(buffer));
+	buffer = malloc(sizeof(char) * sizeof(buff) + 1);
+	buffer[0] = '\0';
+	ft_strcpy(buffer, buff);
+	return (buffer);
 }

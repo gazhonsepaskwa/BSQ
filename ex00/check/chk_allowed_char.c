@@ -6,7 +6,7 @@
 /*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 18:54:38 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/23 18:58:14 by nalebrun         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:46:08 by nalebrun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*get_allowed_char(char *buffer)
 
 	i = 0;
 	out = malloc(4);
+	if (!out)
+		return ((void *)0);
 	i = 0;
 	while (buffer[i] != '\n')
 		i++;

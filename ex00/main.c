@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chk_map_line_count.c                               :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:55:17 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:20:05 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:02:13 by nalebrun          #+#    #+#             */
+/*   Updated: 2024/07/24 10:03:18 by nalebrun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	line_count(char *buffer)
+int	main(int argc, char **argv)
 {
-	int	i;
-	int	line_num;
-
-	i = 0;
-	line_num = 0;
-	while (buffer[i])
+	int		i;
+	char	*buffer;	i = 0;
+	if (argc > 1)
 	{
-		if (buffer[i] == '\n')
-			line_num++;
-		i++;
+		while (++i < argc)
+		{
+			buffer = read_map(argv[i]);
+			if (buffer == NULL)
+			{
+				ft_putstr("map error\n");
+				return (1);
+			}
+		if (check(buffer))
+				solve_bsq(buffer);
+		}
 	}
-	return (line_num);
-}
-
-int	chk_map_line_count(char *buffer)
-{
-	return (line_count(buffer) - 1 == num_lines(buffer));
+	else
+	{
+		buffer = new_map();
+		if (check(buffer))
+			solve_bsq(buffer);
+	}
+	return (0);
 }

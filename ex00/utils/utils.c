@@ -1,34 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chk_map_line_count.c                               :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:55:17 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:20:05 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/23 18:55:41 by nalebrun          #+#    #+#             */
+/*   Updated: 2024/07/24 09:34:42 by nalebrun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsq.h"
+# include "bsq.h"
 
-int	line_count(char *buffer)
+int is_num(char c)
 {
-	int	i;
-	int	line_num;
-
-	i = 0;
-	line_num = 0;
-	while (buffer[i])
-	{
-		if (buffer[i] == '\n')
-			line_num++;
-		i++;
-	}
-	return (line_num);
+	return ((c >= '1' && c <= '9'));
 }
 
-int	chk_map_line_count(char *buffer)
+int is_printable(char c)
 {
-	return (line_count(buffer) - 1 == num_lines(buffer));
+	return ((c >= 33 && c <= 126));
+}
+
+void	ft_strcpy(char *dest, char *src)
+{
+	int	i;	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+void	ft_putchar(char c)
+{
+	write (1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	int	i;
+
+    i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
 }

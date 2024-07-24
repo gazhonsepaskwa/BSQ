@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chk_map_line_count.c                               :+:      :+:    :+:   */
+/*   grid_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:55:17 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:20:05 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 09:31:40 by nalebrun          #+#    #+#             */
+/*   Updated: 2024/07/24 09:31:43 by nalebrun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsq.h"
-
-int	line_count(char *buffer)
+void	grid_binary(char **grid, char *buffer, int **intgrid)
 {
-	int	i;
-	int	line_num;
-
+	char	vide;
+	char	obst;
+	int		i;
+	int		j;	j = 0;
+	while (buffer[j] != '\n')
+		j++;
+	vide = buffer[j - 3];
+	obst = buffer[j - 2];
 	i = 0;
-	line_num = 0;
-	while (buffer[i])
+	while (grid[i])
 	{
-		if (buffer[i] == '\n')
-			line_num++;
+		j = 0;
+		while (grid[i][j])
+		{
+			if (grid[i][j] == vide)
+				intgrid[i][j] = 1;
+			if (grid[i][j] == obst)
+				intgrid[i][j] = 0;
+			j++;
+		}
 		i++;
 	}
-	return (line_num);
-}
-
-int	chk_map_line_count(char *buffer)
-{
-	return (line_count(buffer) - 1 == num_lines(buffer));
 }
