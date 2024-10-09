@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:54:07 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 08:55:36 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:15:07 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 14:10:07 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	check(char *buffer)
+void	free_all(char **grid, char *buffer, int **intgrid)
 {
-	int buff_len;
-	buff_len = strlen(buffer);
-	if (chk_line_len(buffer) && chk_f_line(buffer) && chk_nl(buffer, buff_len))
+	int	i;
+
+	i = 0;
+	while (grid[i])
 	{
-		if (chk_allowed_char(buffer) && chk_map_line_count(buffer))
-			return (1);
-		return (0);
+		free(grid[i]);
+		i++;
 	}
-	else
-		return (0);
+	free(grid);
+	free(buffer);
+	i = 0;
+	while (intgrid[i])
+	{
+		free(intgrid[i]);
+		i++;
+	}
+	free(intgrid);
 }

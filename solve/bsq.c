@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsq.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 09:32:08 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:58:47 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:17:13 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 15:44:59 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	create_bsq(int **intgrid)
 {
 	int	i;
-	int	j;	i = 0;
+	int	j;
+
+	i = 0;
 	while (intgrid[i])
 	{
 		j = 0;
@@ -42,13 +44,17 @@ int	*find_bsq(int **intgrid)
 	int	row;
 	int	col;
 	int	biggest;
-	int	*out;	out = malloc(sizeof(int) * 2);
+	int	*out;
+
+	out = malloc(sizeof(int) * 2);
+	if (!out)
+		return (NULL);
 	biggest = 0;
 	row = 0;
 	while (intgrid[row])
 	{
-		col = 0;
-		while (intgrid[row][col] != -1)
+		col = -1;
+		while (intgrid[row][++col] != -1)
 		{
 			if (intgrid[row][col] > biggest)
 			{
@@ -56,7 +62,6 @@ int	*find_bsq(int **intgrid)
 				out[0] = row;
 				out[1] = col;
 			}
-			col++;
 		}
 		row++;
 	}
@@ -69,10 +74,14 @@ void	fill_square(char **grid, char *buffer, int **intgrid)
 	int	i;
 	int	j;
 	int	max;
-	int	tmp;	tmp = 0;
+	int	tmp;
+
+	tmp = 0;
 	while (buffer[tmp] != '\n')
 		tmp++;
 	pos = find_bsq(intgrid);
+	if (!pos)
+		return ;
 	max = intgrid[pos[0]][pos[1]];
 	i = 0;
 	while (i < max)

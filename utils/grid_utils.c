@@ -3,36 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   grid_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 09:13:58 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 10:00:13 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:15:27 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 18:01:58 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "bsq.h"
-
-int strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "bsq.h"
 
 int	get_len_lines(char *buffer)
 {
 	int	i;
 	int	j;
 
-    j = 0;
+	j = 0;
 	i = 0;
-	while (buffer[i] != '\n')
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
 	i++;
-	while (buffer[i + j] != '\n')
+	while (buffer[i + j] != '\n' && buffer[i])
 		j++;
 	return (j);
 }
@@ -51,7 +41,9 @@ int	num_lines(char *buffer)
 {
 	int	i;
 	int	j;
-	int	res;	i = 0;
+	int	res;
+
+	i = 0;
 	j = 0;
 	res = 0;
 	while (buffer[j] != '\n')
@@ -64,27 +56,37 @@ int	num_lines(char *buffer)
 	return (res);
 }
 
-char *read_map(char *file)
+int	check_dir(char *file)
 {
-	int bytes;
-	int fd;
-	int	i;
-	char *buffer;
+	if (open(file, O_WRONLY) == -1)
+		return (1);
+	return (0);
+}
+
+char	*read_map(char *file)
+{
+	int		bytes;
+	int		fd;
+	char	*buffer;
+	char	temp[100];
 
 	bytes = 0;
-	char temp[100];
+	if (check_dir(file))
+		return (NULL);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return NULL;
+		return (NULL);
 	while ((read(fd, temp, 100)) > 0)
 		bytes += 100;
 	close(fd);
 	buffer = malloc(sizeof(char) * (bytes + 1));
+	if (!buffer)
+		return (NULL);
 	buffer[bytes] = '\0';
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return NULL;
-	read(fd, buffer, bytes);
+		return (NULL);
+	bytes = read(fd, buffer, bytes);
 	buffer[bytes] = '\0';
 	close(fd);
 	return (buffer);

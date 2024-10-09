@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   grid_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 09:31:40 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:31:43 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:17:35 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 13:00:27 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "bsq.h"
 
 void	grid_binary(char **grid, char *buffer, int **intgrid)
 {
 	char	vide;
 	char	obst;
 	int		i;
-	int		j;	j = 0;
+	int		j;
+
+	j = 0;
 	while (buffer[j] != '\n')
 		j++;
 	vide = buffer[j - 3];

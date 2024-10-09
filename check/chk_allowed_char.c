@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chk_allowed_char.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:54:38 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 08:46:08 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:22:32 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 14:58:19 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,40 @@ char	*get_allowed_char(char *buffer)
 	out[1] = buffer[i - 2];
 	out[2] = buffer[i - 1];
 	out[3] = '\0';
+	i = -1;
+	while (!(is_printable(out[++i])))
+	{
+		free(out);
+		return (NULL);
+	}
 	return (out);
 }
 
 int	chk_allowed_char(char *bfr)
 {
-	char *alwd;
-	int i;
+	char	*alwd;
+	int		i;
 
 	i = -1;
 	alwd = get_allowed_char(bfr);
-	while (!(is_printable(alwd[++i])))
+	if (!alwd)
 		return (0);
 	i = 0;
 	if (alwd[0] == alwd[1] || alwd[0] == alwd[2] || alwd[1] == alwd[2])
+	{
+		free(alwd);
 		return (0);
+	}
 	while (bfr[i] != '\n' && bfr[i] != '\0')
 		i++;
 	while (bfr[++i])
 	{
 		if (bfr[i] != alwd[0] && bfr[i] != alwd[1] && bfr[i] != '\n')
+		{
+			free(alwd);
 			return (0);
+		}
 	}
+	free(alwd);
 	return (1);
 }

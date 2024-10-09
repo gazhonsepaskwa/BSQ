@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chk_f_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:54:49 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/23 18:58:35 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:23:01 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 15:43:21 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ int	get_first_line_len(char *buffer)
 
 int	chk_f_line(char *buffer)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
+	i = 0;
+	if (!buffer || !buffer[i])
+		return (0);
 	len = get_first_line_len(buffer);
 	if (len < 4)
 		return (0);
-	i = -1;
-	while (++i <= (len - 4))
+	while (i <= (len - 4))
+	{
 		if (!(is_num(buffer[i])))
 			return (0);
+		i++;
+	}
 	return (1);
 }

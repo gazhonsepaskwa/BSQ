@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chk_map_line_count.c                               :+:      :+:    :+:   */
+/*   chk_nl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalebrun <nalebrun@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lderidde <lderidde@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 18:55:17 by nalebrun          #+#    #+#             */
-/*   Updated: 2024/07/24 09:20:05 by nalebrun         ###   ########.fr       */
+/*   Created: 2024/07/24 10:24:41 by lderidde          #+#    #+#             */
+/*   Updated: 2024/07/24 15:26:19 by lderidde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	line_count(char *buffer)
+int	chk_nl(char *buffer, int buf_len)
 {
-	int	i;
-	int	line_num;
-
-	i = 0;
-	line_num = 0;
-	while (buffer[i])
-	{
-		if (buffer[i] == '\n')
-			line_num++;
-		i++;
-	}
-	return (line_num);
-}
-
-int	chk_map_line_count(char *buffer)
-{
-	return (line_count(buffer) - 1 == num_lines(buffer));
+	return ((buffer[buf_len - 1] == '\n'));
 }
